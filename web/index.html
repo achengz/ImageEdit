@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>清晰工坊 · 本地图片处理</title>
+  <link rel="stylesheet" href="/web/style.css">
+  <script src="/web/app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand"><span class="brand-mark" aria-hidden="true"><span></span></span><span>清晰工坊</span></div>
+    <span class="local-note"><span class="status-dot"></span> 本地处理</span>
+  </header>
+
+  <main class="workspace">
+    <section class="controls" aria-labelledby="page-title">
+      <div class="intro">
+        <h1 id="page-title">为你所像</h1>
+      </div>
+
+      <div class="section-rule"><span>图片</span></div>
+      <div class="upload-actions">
+        <button id="pick-files" type="button" class="pick-button primary-pick">选择图片</button>
+        <button id="pick-folder" type="button" class="pick-button">选择文件夹</button>
+      </div>
+      <input id="file-input" type="file" accept="image/png,image/jpeg,image/webp" multiple hidden>
+      <input id="folder-input" type="file" webkitdirectory directory multiple hidden>
+      <div id="drop-zone" class="drop-zone" tabindex="0" role="button" aria-label="拖放图片到这里">
+        <span class="drop-icon" aria-hidden="true">↘</span>
+        <span>拖放图片到这里</span>
+      </div>
+      <div id="selection" class="selection" aria-live="polite">未选择图片</div>
+
+      <div class="section-rule"><span>目标尺寸</span></div>
+      <div class="dimensions">
+        <label>宽度 <span>px</span><input id="width" type="number" min="1" step="1" inputmode="numeric" value="2048"></label>
+        <span class="dimension-cross" aria-hidden="true">×</span>
+        <label>高度 <span>px</span><input id="height" type="number" min="1" step="1" inputmode="numeric" value="1080"></label>
+      </div>
+      <p class="field-help">按目标比例居中裁剪，不拉伸。</p>
+      <div id="plan" class="plan-note" aria-live="polite">选择图片后显示预计倍率</div>
+
+      <div class="section-rule"><span>修复模型</span></div>
+      <div class="model-choice" role="radiogroup" aria-label="AI 模型">
+        <label><input type="radio" name="model" value="photo" checked><span>Real-ESRGAN · 照片</span></label>
+        <label><input type="radio" name="model" value="anime"><span>Real-ESRGAN · 动漫</span></label>
+        <label><input type="radio" name="model" value="swinir"><span>SwinIR · 通用</span></label>
+      </div>
+      <button id="start" class="start-button" type="button" disabled>开始处理 <span aria-hidden="true">↗</span></button>
+    </section>
+
+    <section class="viewer" aria-labelledby="viewer-title">
+      <div class="viewer-heading">
+        <div><h2 id="viewer-title">预览</h2></div>
+        <span id="viewer-meta">未选择图片</span>
+      </div>
+      <div id="preview" class="preview-surface empty">
+        <div id="empty-state" class="empty-state"><span class="empty-symbol" aria-hidden="true">▧</span><p>选择图片开始</p></div>
+        <img id="source-preview" alt="所选原图预览" hidden>
+        <div id="comparison" class="comparison" hidden>
+          <img id="compare-source" alt="处理前原图">
+          <img id="result-preview" alt="AI 修复结果">
+          <span class="compare-label left-label" aria-hidden="true">AI 修复</span>
+          <span class="compare-label right-label" aria-hidden="true">原图</span>
+          <span id="compare-line" class="compare-line" aria-hidden="true"><span>↔</span></span>
+          <input id="compare-slider" type="range" min="0" max="100" value="50" aria-label="拖动对比处理前后的图片">
+        </div>
+      </div>
+      <div class="viewer-caption"><span id="caption"></span></div>
+
+      <section id="job-panel" class="job-panel" hidden aria-live="polite">
+        <div class="job-heading"><div><h3 id="job-title">正在处理</h3></div><a id="download-all" class="download-all" href="#" hidden>下载结果 ↓</a></div>
+        <div class="progress-track"><div id="progress-fill"></div></div>
+        <div id="job-items" class="job-items"></div>
+      </section>
+    </section>
+  </main>
+</body>
+</html>

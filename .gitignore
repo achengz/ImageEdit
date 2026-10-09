@@ -1,0 +1,7 @@
+.cache/
+output/
+__pycache__/
+.venv/
+.env
+/0.png
+/image.png
